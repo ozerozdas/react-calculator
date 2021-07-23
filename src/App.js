@@ -1,23 +1,107 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBackspace, faEraser, faPlus, faMinus, faTimes, faDivide, faEquals, faPercent } from '@fortawesome/free-solid-svg-icons'
 
-function App() {
+import './style.css';
+
+function App(){
+  const [data, setData] = useState("");
+  const calculatorButtons = [];
+  [9,8,7,6,5,4,3,2,1,'.',0,'%'].forEach(item => {
+    calculatorButtons.push(
+      <button onClick={ e => {
+        (e.target.value !== undefined) ?
+          setData(data + e.target.value)
+        :
+          console.log('Undefined variable. Please try again!');
+      }}
+      key={item}
+      value={item}>
+        {
+          item === '%' ?
+            <FontAwesomeIcon icon={faPercent} />
+          :
+            item
+        }
+      </button>
+    );
+  });
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+
+      <div className="show-input">
+        { data }
+      </div>
+
+      <div className="digits flex">
+        { calculatorButtons }
+      </div>
+
+      <div className="modifiers subgrid">
+        <button onClick={
+          () => setData(data.substr(0, data.length - 1))
+        }>
+          <FontAwesomeIcon icon={faBackspace} />
+        </button>
+        <button onClick={
+          () => setData('')}>
+          <FontAwesomeIcon icon={faEraser} />
+        </button>
+      </div>
+
+      <div className="operations subgrid">
+        <button onClick={e => {
+          (e.target.value !== undefined) ?
+            setData(data + e.target.value)
+          :
+            console.log('Undefined variable. Please try again!')
+        }} value="+">
+            <FontAwesomeIcon icon={faPlus} />
+        </button>
+        <button onClick={e => {
+          (e.target.value !== undefined) ?
+            setData(data + e.target.value)
+          :
+            console.log('Undefined variable. Please try again!')
+        }} value="-">
+            <FontAwesomeIcon icon={faMinus} />
+        </button>
+        <button onClick={e => {
+          (e.target.value !== undefined) ?
+            setData(data + e.target.value)
+          :
+            console.log('Undefined variable. Please try again!')
+        }} value="*">
+            <FontAwesomeIcon icon={faTimes} />
+        </button>
+        <button onClick={e => {
+          (e.target.value !== undefined) ?
+            setData(data + e.target.value)
+          :
+            console.log('Undefined variable. Please try again!')
+        }} value="/">
+            <FontAwesomeIcon icon={faDivide} />
+        </button>
+        <button onClick={
+          e => {
+            try {
+              setData(
+                String(eval(data)).length > 3 && String(eval(data)).includes('.') ?
+                  String(eval(data).toFixed(4))
+                :
+                  String(eval(data))
+              )
+            }catch(err){
+              console.log(err);
+            }
+          }
+        } value="=">
+            <FontAwesomeIcon icon={faEquals} />
+        </button>
+      </div>
+
     </div>
   );
 }
