@@ -7,7 +7,7 @@ import './style.css';
 function App(){
   const [data, setData] = useState("");
   const calculatorButtons = [];
-  [9,8,7,6,5,4,3,2,1,'.',0,'%'].forEach(item => {
+  [7,8,9,4,5,6,1,2,3,'.',0,'%'].forEach(item => {
     calculatorButtons.push(
       <button onClick={ e => {
         (e.target.value !== undefined) ?
