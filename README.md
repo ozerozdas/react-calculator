@@ -1,5 +1,8 @@
 # React Calculator
 
+## Demo
+https://o-react-calculator.herokuapp.com
+
 ### Available Scripts
 
 In the project directory, you can run:
